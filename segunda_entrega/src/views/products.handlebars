@@ -1,0 +1,128 @@
+<div>
+  <div>
+    <div>
+      <form id="filter">
+        <h4>Filtrar</h4>
+        <div>
+          <label for="query">Categoría:</label>
+          <input type="text" id="query" name="query" />
+        </div>
+        <div>
+          <label for="disponible">Disponibilidad:</label>
+          <select name="disponible" id="disponible">
+            <option value="">Todas</option>
+            <option value="disponible">Disponible</option>
+            <option value="no disponible">No disponible</option>
+          </select>
+        </div>
+        <div>
+          <label for="sort">Ordenar producto por precio:</label>
+          <select name="sort" id="sort">
+            <option value="">Sin Orden</option>
+            <option value="asc">Ascendente</option>
+            <option value="desc">Descendente</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div>
+      <div id="productsContainer">
+        {{#each products}}
+          <div>
+            <div>
+              <div>
+                <i>Codigo: {{this.code}}</i>
+              </div>
+              <div>
+                <h5>{{this.title}}</h5>
+                <ul>
+                  <li>Descipción: {{this.description}}</li>
+                  <li>Precio: ${{this.price}}</li>
+                  <li>Categoría: {{this.category}}</li>
+                  <li>Status: {{this.status}}</li>
+                  <li>
+                    <i>Imagen:
+                      <img src="{{this.thumbnail}}" alt="{{this.title}}" /></i>
+                  </li>
+                </ul>
+                <div>
+                  <button
+                    data-value=""
+                    {{this.stock}}
+                    id="{{this.product}}"
+                  >Agregar al Carrito</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+
+      <div id="pagination">
+        {{#if hasPrevPage}}
+          <a href="{{prevLink}}">Prev Page</a>
+        {{else}}
+          <span>Prev Page</span>
+        {{/if}}
+        <span>Page {{page}} of {{totalPages}}</span>
+        {{#if hasNetxPage}}
+          <a href="{{nextLink}}">Next Page</a>
+        {{else}}
+          <span>Next Page</span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('filter').addEventListener('change', function(){
+  fetchProducts() }); let cart; async function fetchProducts(page=1) { const
+  createCart = await fetch('/api/carts', { method: 'POST', headers: {
+  'Content-Type':'application/json', } }) cart = await createCart.json()
+  console.log(cart) const query = document.getElementById('query').value; const
+  disponible = document.getElementById('disponible').value; const sort =
+  document.getElementById('sort').value; const limit = 6; const url = new
+  URL('/api/products', window.location.origin); url.searchParams.set('query',
+  query); url.searchParams.set('disponible', disponible);
+  url.searchParams.set('sort', sort); url.searchParams.set('limit', limit);
+  const response = await fetch(url); const data = await response.json() }
+  products.forEach(product => { const productCard = ` <div"> <div> <div> <i
+  ></i> Codigo: ${product.code} </div> <div> <h5>${product.title}</h5> <ul >
+  <li><i></i> Descripción: ${product.description}</li> <li><i></i> Precio:
+  $${product.price}</li> <li><i></i> Categoría: ${product.category}</li>
+  <li><i></i> Status: ${product.status}</li> <li> <i></i> Image: <img
+  src="${product.thumbnail}" alt="${product.title}"> </li> </ul> <div> <button
+  data-value="${product.stock}" id="${product._id}">Agregar al carrito</button>
+  </div> </div> </div> </div> `; container.innerHTML += productCard; });
+  document.querySelectorAll('.product').forEach(button => {
+  button.addEventListener('click', addToCart); }); } function
+  renderPagination(data) { const pagination =
+  document.getElementById('pagination'); pagination.innerHTML = ''; const
+  prevPage = data.hasPrevPage ? `<a href="#"
+  onclick="fetchProducts(${data.prevPage})" class="btn btn-primary">Prev
+  Page</a>` : `<span class="btn btn-secondary disabled">Prev Page</span>`; const
+  nextPage = data.hasNextPage ? `<a href="#"
+  onclick="fetchProducts(${data.nextPage})" class="btn btn-primary">Next
+  Page</a>` : `<span class="btn btn-secondary.disabled">Next Page</span>`;
+  pagination.innerHTML = ` ${prevPage} <span>Page ${data.page} of
+  ${data.totalPages}</span> ${nextPage} `; } async function addToCart(event) {
+  const productId = event.target.id; const stock =
+  Number(event.target.getAttribute('data-value')); const { value: quantity } =
+  await Swal.fire({ title: 'Agregar cantidad', input: 'number', inputAttributes:
+  { autocapitalize: 'off' }, showCancelButton: true, confirmButtonText:
+  'Confirmar', }); if (quantity !== null) { const quantityNumber =
+  Number(quantity); if (quantityNumber > 0 && stock >= quantityNumber) { try {
+  const response = await fetch(`/api/carts/${cart._id}`, { method: 'POST',
+  headers: { 'Content-Type': 'application/json', }, body: JSON.stringify({
+  "productId": productId, "quantity": quantityNumber }), }); if (response.ok) {
+  const data = await response.json(); Swal.fire({ title: 'Producto agregado',
+  text: `ID: ${productId} - Cantidad: ${quantityNumber}`, icon: 'success', }); }
+  else { Swal.fire({ title: 'Error', text: 'Error al agregar el producto', icon:
+  'error', }); } } catch (error) { console.error('Error al agregar el producto
+  al carrito:', error); Swal.fire({ title: 'Error', text: 'Error al agreegar el
+  producto', icon: 'error', }); } } else if (quantityNumber <= 0) { Swal.fire({
+  title: 'Tiene que ser mayor que 0', icon: 'warning', }); } else { Swal.fire({
+  title: 'La cantidad es mayor al stock', icon: 'error', }); } } }
+  document.addEventListener('DOMContentLoaded', () => { fetchProducts(); });
+</script>

@@ -28,6 +28,10 @@ class CartManager {
       const cart = await CartModel.create({ products });
       return cart;
     } catch (err) {
+      //CON UN IF ANTES DEL TRY VERIFICAR SI CART = 0 QUE CREE UN CARRO Y AHI DENTRO PUSHEAR LOS PRODUCTOS
+      //Y SI HAY CARRO QUE PUSHEE LOS PRODUCTOS DENTRO DE ESE
+      //CARRO
+
       console.error("Error al crear el carrito:", err.message);
       return null;
     }
