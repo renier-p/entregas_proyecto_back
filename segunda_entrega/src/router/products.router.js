@@ -99,3 +99,5 @@ router.delete("/products/:pid", async (req, res) => {
       });
   }
 });
+
+export default router

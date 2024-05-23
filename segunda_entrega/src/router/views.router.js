@@ -1,7 +1,7 @@
 import Router from "express";
 import ProductManager from "../Dao/mongo/productsManagerMongo.js";
 import CartManager from "../Dao/mongo/cartsManagerMongo.js";
-import __dirname from "../utils";
+import __dirname from "../utils.js";
 
 const productmanager = new ProductManager();
 const cartmanager = new CartManager();
@@ -113,8 +113,8 @@ router.get("/products", async (req, res) => {
 router.get("/products/inCart", async (req, res) => {
   const productsCart = await Promise.all(
     cart.map(async (product) => {
-      const product = await productmanager.getProductById(product._id);
-      return { title: product, quantity: product.quantity };
+      const productDB = await productmanager.getProductById(product._id);
+      return { title: productDB, quantity: product.quantity };
     })
   );
   return res.send({ cartLength: cart.length, productsCart });
