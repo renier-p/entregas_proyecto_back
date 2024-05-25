@@ -1,109 +1,110 @@
-<div>
-  <div>
-    <div>
-      <form id="filter">
-        <h4>Filtrar</h4>
-        <div>
-          <label for="query">Categoría:</label>
-          <input type="text" id="query" name="query" />
-        </div>
-        <div>
-          <label for="disponible">Disponibilidad:</label>
-          <select name="disponible" id="disponible">
-            <option value="">Todas</option>
-            <option value="disponible">Disponible</option>
-            <option value="no disponible">No disponible</option>
-          </select>
-        </div>
-        <div>
-          <label for="sort">Ordenar producto por precio:</label>
-          <select name="sort" id="sort">
-            <option value="">Sin Orden</option>
-            <option value="asc">Ascendente</option>
-            <option value="desc">Descendente</option>
-          </select>
-        </div>
-      </form>
-    </div>
-    <div>
-      <div id="productsContainer">
-        {{#each products}}
-          <div>
-            <div>
-              <div>
-                <i>Codigo: {{this.code}}</i>
-              </div>
-              <div>
-                <h5>{{this.title}}</h5>
-                <ul>
-                  <li>Descipción: {{this.description}}</li>
-                  <li>Precio: ${{this.price}}</li>
-                  <li>Categoría: {{this.category}}</li>
-                  <li>Status: {{this.status}}</li>
-                  <li>
-                    <i>Imagen:
-                      <img src="{{this.thumbnail}}" alt="{{this.title}}" /></i>
-                  </li>
-                </ul>
-                <div>
-                  <button
-                    data-value=""
-                    {{this.stock}}
-                    id="{{this.product}}"
-                  >Agregar al Carrito</button>
+<div class="container" style="margin-left: 30rem; margin-top: 25px">
+    <div class="row">
+        <div class="col-md-3">
+            <form id="filterForm" class="bg-light p-3 rounded">
+                <h4>Filtros</h4>
+                <div class="form-group">
+                    <label for="query">Categoría:</label>
+                    <input type="text" id="query" name="query" class="form-control">
                 </div>
-              </div>
+                <div class="form-group">
+                    <label style="margin-top: 10px;" for="availability">Disponibilidad:</label>
+                    <select id="availability" name="availability" class="form-control">
+                        <option value="">Todas</option>
+                        <option value="available">Disponible</option>
+                        <option value="unavailable">No disponible</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label style="margin-top: 10px;" for="sort">Ordenar por precio:</label>
+                    <select id="sort" name="sort" class="form-control">
+                        <option value="">Sin orden</option>
+                        <option value="asc">Ascendente</option>
+                        <option value="desc">Descendente</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-9">
+            <div id="productsContainer" class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                {{#each products}}
+                <div class="col mb-4">
+                    <div class="card h-100 bg-light rounded">
+                        <div class="card-header text-white">
+                            <i class="bi bi-tag"></i> Código: {{this.code}}
+                        </div>
+                        
+                        <div class="card-body">
+                            <h5 class="card-title text-dark">{{this.title}}</h5>
+                            <ul class="list-unstyled">
+                                <li><i class="bi bi-file-text"></i> Descripción: {{this.description}}</li>
+                                <li><i class="bi bi-currency-dollar"></i> Precio: ${{this.price}}</li>
+                                <li><i class="bi bi-grid"></i> Categoría: {{this.category}}</li>
+                                <li><i class="bi bi-check-circle"></i> Estado: {{this.status}}</li>
+                                <li>
+                                    <i class="bi bi-image"></i> Imagen: <img src="{{this.thumbnail}}" alt="{{this.title}}" class="img-fluid mt-2">
+                                </li>
+                            </ul>
+                            <div class="text-center mt-3">
+                                <button data-value="{{this.stock}}" id="{{this.product}}" class="btn btn-primary" >Agregar al carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
             </div>
-          </div>
-        {{/each}}
-      </div>
 
-      <div id="pagination">
-        {{#if hasPrevPage}}
-          <a href="{{prevLink}}">Prev Page</a>
-        {{else}}
-          <span>Prev Page</span>
-        {{/if}}
-        <span>Page {{page}} of {{totalPages}}</span>
-        {{#if hasNetxPage}}
-          <a href="{{nextLink}}">Next Page</a>
-        {{else}}
-          <span>Next Page</span>
-        {{/if}}
-      </div>
+            <div id="pagination" class="d-flex justify-content-between mt-4">
+                {{#if hasPrevPage}}
+                <a href="{{prevLink}}" class="btn btn-primary">Pag Ant</a>
+                {{else}}
+                <span class="btn btn-secondary disabled">Pag Ant</span>
+                {{/if}}
+
+                <span>Página {{page}} de {{totalPages}}</span>
+
+                {{#if hasNextPage}}
+                <a href="{{nextLink}}" class="btn btn-primary">Pag Sig</a>
+                {{else}}
+                <span class="btn btn-secondary disabled">Pag Sig</span>
+                {{/if}}
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
 
+
 <script>
-document.getElementById('filter').addEventListener('change', function() {
+document.getElementById('filterForm').addEventListener('change', function() {
     fetchProducts();
 });
 
 let cart;
 async function fetchProducts(page = 1) {
     const createCart = await fetch('/api/carts', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    });
-    cart = await createCart.json();
-    console.log(cart);
-
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                cart = await createCart.json()
+                console.log(cart)
     const query = document.getElementById('query').value;
-    const disponible = document.getElementById('disponible').value;
+    const availability = document.getElementById('availability').value;
     const sort = document.getElementById('sort').value;
     const limit = 6;
 
     const url = new URL('/api/products', window.location.origin);
     url.searchParams.set('query', query);
-    url.searchParams.set('disponible', disponible);
+    url.searchParams.set('availability', availability);
     url.searchParams.set('sort', sort);
+    url.searchParams.set('page', page);
     url.searchParams.set('limit', limit);
 
     const response = await fetch(url);
     const data = await response.json();
+
     renderProducts(data.payload);
     renderPagination(data);
 }
@@ -114,24 +115,24 @@ function renderProducts(products) {
 
     products.forEach(product => {
         const productCard = `
-            <div>
-                <div>
-                    <div>
-                        <i></i> Codigo: ${product.code}
+            <div class="col mb-4">
+                <div class="card h-100 bg-light">
+                    <div class="card-header bg-secondary text-white">
+                        <i class="bi bi-tag" ></i> Código: ${product.code}
                     </div>
-                    <div>
-                        <h5>${product.title}</h5>
-                        <ul>
-                            <li><i></i> Descripción: ${product.description}</li>
-                            <li><i></i> Precio: $${product.price}</li>
-                            <li><i></i> Categoría: ${product.category}</li>
-                            <li><i></i> Status: ${product.status}</li>
+                    <div class="card-body">
+                        <h5 class="card-title text-dark">${product.title}</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-file-text"></i> Descripción: ${product.description}</li>
+                            <li><i class="bi bi-currency-dollar"></i> Precio: $${product.price}</li>
+                            <li><i class="bi bi-grid"></i> Categoría: ${product.category}</li>
+                            <li><i class="bi bi-check-circle"></i> Estado: ${product.status}</li>
                             <li>
-                                <i></i> Imagen: <img src="${product.thumbnail}" alt="${product.title}">
+                                <i class="bi bi-image"></i> Imagen: <img src="${product.thumbnail}" alt="${product.title}" class="img-fluid mt-2">
                             </li>
                         </ul>
-                        <div>
-                            <button data-value="${product.stock}" id="${product._id}">Agregar al Carrito</button>
+                        <div class="text-center mt-3">
+                            <button class="btn text-lg product" style="background-color: #ff6600; border-color: #ff6600; color: white" data-value="${product.stock}" id="${product._id}">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
@@ -149,27 +150,29 @@ function renderPagination(data) {
     const pagination = document.getElementById('pagination');
     pagination.innerHTML = '';
 
-    const prevPage = data.hasPrevPage ? `<a href="#" onclick="fetchProducts(${data.prevPage})">Prev Page</a>` : `<span class="btn btn-secondary disabled">Prev Page</span>`;
-    const nextPage = data.hasNextPage ? `<a href="#" onclick="fetchProducts(${data.nextPage})">Next Page</a>` : `<span class="btn btn-secondary.disabled">Next Page</span>`;
-
+    const prevPage = data.hasPrevPage ? `<a href="#" onclick="fetchProducts(${data.prevPage})" class="btn btn-primary">Pag Ant</a>` : `<span class="btn btn-secondary disabled">Pag Ant</span>`;
+    const nextPage = data.hasNextPage ? `<a href="#" onclick="fetchProducts(${data.nextPage})" class="btn btn-primary">Pag Sig</a>` : `<span class="btn btn-secondary.disabled">Pag Sig</span>`;
+    
     pagination.innerHTML = `
         ${prevPage}
-        <span>Page ${data.page} of ${data.totalPages}</span>
+        <span>Página ${data.page} of ${data.totalPages}</span>
         ${nextPage}
     `;
 }
+
 
 async function addToCart(event) {
     const productId = event.target.id;
     const stock = Number(event.target.getAttribute('data-value'));
     const { value: quantity } = await Swal.fire({
-        title: 'Agregar cantidad',
+        title: 'Agregue cantidad',
         input: 'number',
         inputAttributes: {
             autocapitalize: 'off'
         },
         showCancelButton: true,
         confirmButtonText: 'Confirmar',
+        confirmButtonColor: '#ff6600'
     });
 
     if (quantity !== null) {
@@ -186,34 +189,39 @@ async function addToCart(event) {
                 if (response.ok) {
                     const data = await response.json();
                     Swal.fire({
-                        title: 'Producto agregado con éxito',
+                        title: 'Producto agregado',
                         text: `ID: ${productId} - Cantidad: ${quantityNumber}`,
                         icon: 'success',
                     });
                 } else {
                     Swal.fire({
                         title: 'Error',
-                        text: 'Hubo un error al agregar el producto al carrito',
+                        text: 'Hubo un error agregando el producto',
                         icon: 'error',
                     });
                 }
             } catch (error) {
-                console.error('Error al agregar el producto al carrito:', error);
+                console.error('Error al agregar el producto:', error);
                 Swal.fire({
                     title: 'Error',
-                    text: 'Hubo un error al agregar el producto al carrito',
+                    text: 'ubo un error agregando el producto',
                     icon: 'error',
                 });
             }
         } else if (quantityNumber <= 0) {
             Swal.fire({
-                title: 'La cantidad debe ser mayor a 0',
+                title: 'Debe ser mayor a 0',
                 icon: 'warning',
+                confirmButtonColor: '#ff6600',
+                confirmButtonText: "Aceptar"
             });
         } else {
             Swal.fire({
-                title: 'La cantidad no puede ser mayor al stock',
+                title: 'Es mayor que el stock',
                 icon: 'error',
+                confirmButtonColor:'#ff6600',
+                confirmButtonText: "Aceptar"
+
             });
         }
     }
@@ -223,5 +231,3 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchProducts();
 });
 </script>
-
-
