@@ -26,45 +26,53 @@
   <body>
     <aside class="sidebar">
     <header>
-      <button type="button" class="sidebar-burger" onClick="toggleSidebar()">
-        <i class="ai-three-line-horizontal"></i>
-      </button>
+        <button type="button" class="sidebar-burger" onClick="toggleSidebar()">
+            <i class="ai-three-line-horizontal"></i>
+        </button>
     </header>
     <ul>
-      <li>
-        <a href="/realtimeproducts" class="button-link">
-          <button-sidebar type="button">
-            <i class="ai-home-alt1"></i>
-            <p>Inicio</p>
-          </button-sidebar>
-        </a>
-      </li>
-      <li>
-        <a href="/products" class="button-link">
-          <button-sidebar type="button">
-            <i class="ai-cart"></i>
-            <p>Productos</p>
-          </button-sidebar>
-        </a>
-      </li>
-      <li>
-        <a href="/chat" class="button-link">
-          <button-sidebar type="button">
-            <i class="material-symbols-outlined">
-chat
-</i>
-            <p>Chat</p>
-          </button-sidebar>
-        </a>
-      </li>
-      <li>
-        <button-sidebar type="button" onclick="onClick(this)">
-          <i class="ai-lock-on"></i>
-          <p>Account</p>
-        </button-sidebar>
-      </li>
+        <li>
+            <a href="/realtimeproducts" class="button-link">
+                <div class="button-sidebar">
+                    <i class="ai-home-alt1"></i>
+                    <p>Inicio</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="/products" class="button-link">
+                <div class="button-sidebar">
+                    <i class="ai-cart"></i>
+                    <p>Productos</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="/chat" class="button-link">
+                <div class="button-sidebar">
+                    <i class="material-symbols-outlined">chat</i>
+                    <p>Chat</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="/api/carts" class="button-link">
+                <div class="button-sidebar">
+                    <i class="material-symbols-outlined">shopping_cart_checkout</i>
+                    <p>Carrito</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <div class="button-sidebar" onclick="onClick(this)">
+                <i class="ai-person"></i>
+                <p>Log In</p>
+            </div>
+        </li>
     </ul>
-  </aside>
+</aside> 
+
+ 
     
     <main>
     {{{body}}}

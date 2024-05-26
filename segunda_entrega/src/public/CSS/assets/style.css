@@ -14,7 +14,8 @@ body {
 
 .button-link {
   text-decoration: none;
-  display: block; 
+  display: block;
+  color: inherit; 
 }
 
 button {
@@ -58,7 +59,7 @@ button {
   height: 24px;
 }
 
-.sidebar button-sidebar {
+.sidebar .button-sidebar {
   position: relative;
   display: flex;
   gap: 16px;
@@ -74,23 +75,23 @@ button {
   color: rgb(255 255 255 / 95%);
 }
 
-.sidebar button-sidebar p:nth-child(2) {
+.sidebar .button-sidebar p:nth-child(2) {
   flex: 1 1 auto;
 }
 
-.sidebar button-sidebar:is(.active, :hover) {
+.sidebar .button-sidebar:is(.active, :hover) {
   background: rgb(0 0 0 / 30%);
 }
 
-.sidebar button-sidebar i {
+.sidebar .button-sidebar i {
   transition: 0.3s;
 }
 
-.sidebar button-sidebar.active > i:nth-child(3) {
+.sidebar .button-sidebar.active > i:nth-child(3) {
   rotate: -180deg;
 }
 
-.sidebar button-sidebar:not(.active):hover {
+.sidebar .button-sidebar:not(.active):hover {
   background: rgb(0 0 0 / 10%);
 }
 
@@ -116,11 +117,11 @@ button {
   display: grid;
 }
 
-.sub-menu button-sidebar {
+.sub-menu .button-sidebar {
   padding-left: 52px;
 }
 
-.sub-menu button-sidebar::before {
+.sub-menu .button-sidebar::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -133,7 +134,7 @@ button {
 }
 
 .sidebar .material-symbols-outlined {
-  font-size: 16px;
+  font-size: 20px; 
 }
 
 .sidebar i {
@@ -142,6 +143,9 @@ button {
   max-width: 20px;
   min-width: 20px;
 }
+
+
+
 
 /* //------------- */
 
@@ -311,7 +315,7 @@ button {
 }
 
 #formProduct {
-  width: 400px;
+  width: 700px;
   /* background: #24303c; */
   background: rgb(0 0 0 / 20%);
   padding: 30px;

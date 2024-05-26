@@ -37,6 +37,7 @@
                         <div class="card-body">
                             <h5 class="card-title text-dark">{{this.title}}</h5>
                             <ul class="list-unstyled">
+                                <li><i class="bi bi-file-text"></i> Id del producto: {{this._id}}</li>
                                 <li><i class="bi bi-file-text"></i> Descripción: {{this.description}}</li>
                                 <li><i class="bi bi-currency-dollar"></i> Precio: ${{this.price}}</li>
                                 <li><i class="bi bi-grid"></i> Categoría: {{this.category}}</li>
@@ -117,16 +118,18 @@ function renderProducts(products) {
         const productCard = `
             <div class="col mb-4">
                 <div class="card h-100 bg-light">
-                    <div class="card-header bg-secondary text-white">
-                        <i class="bi bi-tag" ></i> Código: ${product.code}
+                    <div class="card-header text-white" style="background: rgb(191, 191, 191)">
+                        <i class="bi bi-tag"  ></i> Código: ${product.code}
                     </div>
                     <div class="card-body">
                         <h5 class="card-title text-dark">${product.title}</h5>
                         <ul class="list-unstyled">
+                            <li><i class="bi bi-file-text"></i> ID: ${product._id}</li>
                             <li><i class="bi bi-file-text"></i> Descripción: ${product.description}</li>
                             <li><i class="bi bi-currency-dollar"></i> Precio: $${product.price}</li>
                             <li><i class="bi bi-grid"></i> Categoría: ${product.category}</li>
                             <li><i class="bi bi-check-circle"></i> Estado: ${product.status}</li>
+                            <li><i class="bi bi-file-text"></i> Stock: ${product.stock}</li>
                             <li>
                                 <i class="bi bi-image"></i> Imagen: <img src="${product.thumbnail}" alt="${product.title}" class="img-fluid mt-2">
                             </li>
