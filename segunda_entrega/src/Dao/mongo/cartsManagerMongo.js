@@ -1,6 +1,6 @@
 import CartModel from "../models/carts.model.js";
 
-class CartManager {
+export default class CartManager {
     getCarts = async () => {
         try {
             const carts = await CartModel.find().lean();
@@ -16,7 +16,7 @@ class CartManager {
             const cart = await CartModel.findById(cartId).populate('products._id').lean();
             return cart;
         } catch (err) {
-            console.error('Error al obtener el carrito:', err.message);
+            console.error('Error al obtener el carrito por ID:', err.message);
             return null;
         }
     }
@@ -26,7 +26,7 @@ class CartManager {
             const cart = await CartModel.create({ products });
             return cart;
         } catch (err) {
-            console.error('Error creando el carrito:', err.message);
+            console.error('Error al crear el carrito:', err.message);
             return null;
         }
     }
@@ -80,7 +80,7 @@ class CartManager {
             const cart = await CartModel.findByIdAndUpdate(cartId, { products }, { new: true });
             return cart;
         } catch (err) {
-            console.error('Error actualizando el carrito:', err.message);
+            console.error('Error al actualizar el carrito:', err.message);
             return null;
         }
     }
@@ -94,7 +94,7 @@ class CartManager {
             );
             return cart;
         } catch (err) {
-            console.error('Error al actualizar la cantidad del producto:', err.message);
+            console.error('Error al actualizar la cantidad del producto en el carrito:', err.message);
             return null;
         }
     }
@@ -104,10 +104,8 @@ class CartManager {
             const cart = await CartModel.findByIdAndUpdate(cid, { products: [] }, { new: true });
             return cart;
         } catch (err) {
-            console.error('Error eliminado todos los productos del carrito:', err.message);
+            console.error('Error al eliminar todos los productos del carrito:', err.message);
             return null;
         }
     }
 }
-
-export default CartManager;

@@ -4,7 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/CSS/assets/style.css" />
     <link rel="stylesheet" href="/CSS/assets/message.css" />
-    {{!-- <link rel="stylesheet" href="/CSS/assets/login.css" /> --}}
+    <link rel="stylesheet" href="/CSS/assets/login.css" />
+    <link rel="stylesheet" href="/CSS/assets/register.css" />
+    <link rel="stylesheet" href="/CSS/assets/profile.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
@@ -66,16 +68,19 @@
         </li>
         <li>
             <a href="/login" class="button-link">
-            <div class="button-sidebar" onclick="onClick(this)">
+            <div class="button-sidebar">
                 <i class="ai-person"></i>
                 <p>Log In</p>
             </div>
+            </a>
         </li>
     </ul>
+    <div class="button-sidebar user-info">
+                    <i class="material-symbols-outlined">person_check</i>
+                    <p>{{user.first_name}} {{user.last_name}}</p>
+    </div>
 </aside> 
 
- 
-    
     <main>
     {{{body}}}
     </main>
@@ -85,3 +90,7 @@
     <script src="js/main.js"></script>
   </body>
 </html>
+
+
+
+    

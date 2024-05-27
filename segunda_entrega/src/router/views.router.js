@@ -24,18 +24,18 @@ router.get('/products', async (req, res) => {
         const links = (products) => {
             let prevLink;
             let nextLink;
-            if (req.originalUrl.includes('page')) {
-                prevLink = products.hasPrevPage ? req.originalUrl.replace(`page=${products.page}`, `page=${products.prevPage}`) : null;
-                nextLink = products.hasNextPage ? req.originalUrl.replace(`page=${products.page}`, `page=${products.nextPage}`) : null;
+            if (req.originalUrl.includes('pagina')) {
+                prevLink = products.hasPrevPage ? req.originalUrl.replace(`pagina=${products.page}`, `pagina=${products.prevPage}`) : null;
+                nextLink = products.hasNextPage ? req.originalUrl.replace(`pagina=${products.page}`, `pagina=${products.nextPage}`) : null;
                 return { prevLink, nextLink }
             }
             if (!req.originalUrl.includes('?')) {
-                prevLink = products.hasPrevPage ? req.originalUrl.concat(`?page=${products.prevPage}`) : null;
-                nextLink = products.hasNextPage ? req.originalUrl.concat(`?page=${products.nextPage}`) : null;
+                prevLink = products.hasPrevPage ? req.originalUrl.concat(`?pagina=${products.prevPage}`) : null;
+                nextLink = products.hasNextPage ? req.originalUrl.concat(`?pagina=${products.nextPage}`) : null;
                 return { prevLink, nextLink }
             }
-            prevLink = products.hasPrevPage ? req.originalUrl.concat(`&page=${products.prevPage}`) : null;
-            nextLink = products.hasNextPage ? req.originalUrl.concat(`&page=${products.nextPage}`) : null;
+            prevLink = products.hasPrevPage ? req.originalUrl.concat(`&pagina=${products.prevPage}`) : null;
+            nextLink = products.hasNextPage ? req.originalUrl.concat(`&pagina=${products.nextPage}`) : null;
             return { prevLink, nextLink }
 
         }
@@ -77,7 +77,7 @@ router.post('/products', async (req, res) => {
                 (findId !== -1) ? cart[findId].quantity += product.quantity : cart.push(product)
             }
             else {
-                return res.render('products', { message: 'Tiene que ser mayor que 0' })
+                return res.render('products', { message: 'Debe ser mayor que 0' })
             }
         }
         if (finishBuy) {
@@ -105,7 +105,7 @@ router.get('/carts/:cid', async (req, res) => {
     try {
         const { cid } = req.params
         const result = await cm.getCartById(cid)
-        if(result === null || typeof(result) === 'string') return res.render('cart', { result: false, message: 'ID no encontrado' });
+        if(result === null || typeof(result) === 'string') return res.render('cart', { result: false, message: 'ID no existe' });
         return res.render('cart', { result });
     } catch (err) {
         console.log(err);

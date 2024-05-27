@@ -1,8 +1,13 @@
-<h2>Perfil de Usuario</h2>
-<p>Nombre: {{user.first_name}}</p>
-<p>Apellido: {{user.last_name}}</p>
-<p>Email: {{user.email}}</p>
-<p>Edad: {{user.age}}</p>
-<form action="/api/sessions/logout" method="POST">
-    <button type="submit">Cerrar Sesión</button>
-</form>
+<div id="profile-section">
+    <div class="profile-card" style="width: 300px;">
+        <h2>Perfil de Usuario</h2>
+        <p>Nombre: {{user.first_name}}</p>
+        <p>Apellido: {{user.last_name}}</p>
+        <p>Email: {{user.email}}</p>
+        <p>Edad: {{user.age}}</p>
+        <p>Role: {{user.role}}</p>
+        <form action="/api/sessions/logout" method="POST">
+            <button type="submit">Cerrar Sesión</button>
+        </form>
+    </div>
+</div>

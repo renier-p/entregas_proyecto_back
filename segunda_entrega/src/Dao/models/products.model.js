@@ -8,9 +8,9 @@ const productSchema = new mongoose.Schema({
     price: {type: Number,required: true},
     stock: {type: Number,required: true},
     thumbnail: {type: String,required: false },
-    code: {type: String,unique: true, required: true},
+    code: {type: String, unique: true, required: true},
     category: {type: String,required: true},
-    status: {type: Boolean,default: true }
+    status: { type: Boolean, default: true }
 })
 productSchema.plugin(mongoosePaginate)
 const productsModel = mongoose.model(productCollection,productSchema)

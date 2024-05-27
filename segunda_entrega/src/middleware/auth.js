@@ -1,19 +1,3 @@
-export const isAuthenticated = (req, res, next) => {
-    if (req.session.user) {
-        return next();
-    } else {
-        res.redirect('/login');
-    }
-};
-
-export const isNotAuthenticated = (req, res, next) => {
-    if (!req.session.user) {
-        return next();
-    } else {
-        res.redirect('/profile');
-    }
-};
-
 // export const isAuthenticated = (req, res, next) => {
 //     if (req.session.user) {
 //         return next();
@@ -30,10 +14,26 @@ export const isNotAuthenticated = (req, res, next) => {
 //     }
 // };
 
-// export const isAdmin = (req, res, next) => {
-//     if (req.session.user && req.session.user.role === 'admin') {
-//         return next();
-//     } else {
-//         res.status(403).send('Forbidden');
-//     }
-// };
+export const isAuthenticated = (req, res, next) => {
+    if (req.session.user) {
+        return next();
+    } else {
+        res.redirect('/login');
+    }
+};
+
+export const isNotAuthenticated = (req, res, next) => {
+    if (!req.session.user) {
+        return next();
+    } else {
+        res.redirect('/profile');
+    }
+};
+
+export const isAdmin = (req, res, next) => {
+    if (req.session.user && req.session.user.role === 'admin') {
+        return next();
+    } else {
+        res.status(403).send('Forbidden');
+    }
+};

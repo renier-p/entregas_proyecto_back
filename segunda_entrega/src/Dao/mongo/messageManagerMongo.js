@@ -1,11 +1,10 @@
 import messageModel from "../models/messages.model.js"
-
-class MessageManager {
+export default class MessageManager {
     getMessages = async () => {
         try {
             return await messageModel.find().lean();
         } catch (error) {
-            console.error("Error obteniendo mensajes:", error)
+            console.error("Error al obtener mensajes:", error)
             return error
         }
     }
@@ -13,7 +12,7 @@ class MessageManager {
 
     createMessage = async (message) => {
         if (message.user.trim() === '' || message.message.trim() === '') {
-            console.warn("El mensaje está en blanco.")
+            console.warn("Mensaje vacío.")
             return null;
     }
 
@@ -32,10 +31,8 @@ try {
     console.log("Mensajes borrados:", result)
     return result
     } catch (error) {
-        console.error("Error al borrar los mensajes:", error)
+        console.error("Error borrando mensaje:", error)
         return error
         }
     }
 }
-
-export default MessageManager;

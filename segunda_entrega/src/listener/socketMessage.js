@@ -3,9 +3,9 @@ const mm = new MessageManager();
 
 const socketChat = (socketServer) => {
     socketServer.on('connection', async (socket) => {
-        console.log("Usuario conectado: " + socket.id);
+        console.log("Usuario conectado con id: " + socket.id);
 
-
+    
         socket.on("nuevousuario", async (usuario) => {
             socket.broadcast.emit("broadcast", usuario);
 
@@ -13,11 +13,10 @@ const socketChat = (socketServer) => {
                 const messages = await mm.getMessages();
                 socket.emit("chat", messages); 
             } catch (error) {
-                console.error("Error obteniendo mensajes:", error);
+                console.error("Error al obtener mensajes:", error);
             }
         });
 
-      
         socket.on("mensaje", async (info) => {
             await mm.createMessage(info);
             const messages = await mm.getMessages();
@@ -27,10 +26,10 @@ const socketChat = (socketServer) => {
         socket.on("clearchat", async () => {
             try {
                 await mm.deleteAllMessages();
-                const messages = await mm.getMessages();
+                const messages = await mm.getMessages(); 
                 socketServer.emit("chat", messages); 
             } catch (error) {
-                console.error("Error borrando mensajes:", error);
+                console.error("Error al borrar mensajes:", error);
             }
         });
     });

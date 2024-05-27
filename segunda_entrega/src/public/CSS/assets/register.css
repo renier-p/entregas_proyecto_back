@@ -1,0 +1,65 @@
+#register-section {
+    display: flex;
+    justify-content: center;
+    height: 50vh;
+    margin-top: 25px;
+
+}
+
+#register-section .register-card {
+    border: 1px solid #000;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 36%);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+#register-section .register-card {
+    border: 1px solid #000;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 36%);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px; /* Ajusta el ancho máximo para que no ocupe toda la pantalla */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agrega una sombra para un mejor aspecto */
+}
+
+#register-section .register-form input[type="text"],
+#register-section .register-form input[type="email"],
+#register-section .register-form input[type="number"],
+#register-section .register-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+#register-section .register-form button[type="submit"] {
+    background-color: #ff6600;
+    color: #fff;
+    border: 1px solid #ff6600;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#register-section .register-form a {
+    color: #000;
+    text-decoration: none;
+}
+
+#register-section .register-card h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    pointer-events: none; /* Evita que se comporte como un enlace */
+    color: #000; /* Color del texto */
+}

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import ProductManager from '../Dao/mongo/productsManagerMongo.js';
+import ProductManager from "../Dao/mongo/productsManagerMongo.js";
 
 const manager = new ProductManager();
 const router = Router();
@@ -39,7 +39,7 @@ router.get('/products', async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ status: 'error', message: 'Error interno', error: error.message });
+        res.status(500).json({ status: 'error', message: 'Error del servidor', error: error.message });
     }
 });
 
@@ -48,7 +48,7 @@ router.get("/products/:pid", async (req, res) => {
         const productfind = await manager.getProductById(req.params.pid);
         res.status(200).json({ status: "success", productfind });
     } catch (error) {
-        res.status(500).json({ status: "error", message: "Error interno", error: error.message });
+        res.status(500).json({ status: "error", message: "Error del servidor", error: error.message });
     }
 });
 
@@ -58,7 +58,7 @@ router.post("/products", async (req, res) => {
         const newproduct = await manager.addProduct(obj);
         res.status(201).json({ status: "success", newproduct });
     } catch (error) {
-        res.status(500).json({ status: "error", message: "Error interno", error: error.message });
+        res.status(500).json({ status: "error", message: "Error del servidor", error: error.message });
     }
 });
 
@@ -69,7 +69,7 @@ router.put("/products/:pid", async (req, res) => {
         const updatedproduct = await manager.updateProduct(pid, obj);
         res.status(200).json({ status: "success", updatedproduct });
     } catch (error) {
-        res.status(500).json({ status: "error", message: "Error interno", error: error.message });
+        res.status(500).json({ status: "error", message: "Error del servidor", error: error.message });
     }
 });
 
@@ -79,7 +79,7 @@ router.delete("/products/:pid", async (req, res) => {
         const deleteproduct = await manager.deleteProduct(id);
         res.status(200).json({ status: "success", deleteProduct: deleteproduct });
     } catch (error) {
-        res.status(500).json({ status: "error", message: "Error interno", error: error.message });
+        res.status(500).json({ status: "error", message: "Error del servidor", error: error.message });
     }
 });
 
