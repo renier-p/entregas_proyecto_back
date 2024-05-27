@@ -1,10 +1,16 @@
 import express from "express";
 import mongoose from "mongoose";
-import mongodb from "mongodb";
 import dotenv from "dotenv";
 import handlebars from "express-handlebars";
 import __dirname from "./utils.js";
 import { Server } from "socket.io";
+import session from "express-session";
+import bodyParser from "body-parser";
+import { engine }  from "express-handlebars";
+import MongoStore from 'connect-mongo';
+import sessionsRouter from './router/api/session.js';
+import viewsRouter from './router/views.js';
+
 
 import productsRoutes from "./router/products.router.js"
 import cartsRoutes from "./router/carts.router.js"
@@ -33,6 +39,15 @@ app.set("view engine", "handlebars");
 app.use("/api", productsRoutes);
 app.use("/api/carts", cartsRoutes);
 app.use("/", viewsRoutes);
+app.use(session({
+  secret:'secretkey',
+  resave: false,
+  saveUninitialized: true,
+  store:MongoStore.create({ mongoUrl: 'mongodb+srv://rainer:2025@cluster0.1fy9xjh.mongodb.net/ecommerce_final?retryWrites=true&w=majority&appName=Cluster0' }),
+  // cookie: { maxAge: 180 * 60 * 1000 },
+}))
+app.use('/api/sessions', sessionsRouter);
+app.use('/', viewsRouter)
 
 mongoose
   .connect(process.env.MONGO_URL)
