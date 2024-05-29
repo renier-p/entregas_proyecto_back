@@ -45,8 +45,11 @@ router.get('/products', async (req, res) => {
 
 router.get("/products/:pid", async (req, res) => {
     try {
-        const productfind = await manager.getProductById(req.params.pid);
-        res.status(200).json({ status: "success", productfind });
+        const product = await manager.getProductById(req.params.pid);
+        if (!product) {
+            return res.status(404).json({ status: 'error', message: 'Producto no encontrado' });
+        }
+        res.status(200).json({ status: 'success', product });
     } catch (error) {
         res.status(500).json({ status: "error", message: "Error del servidor", error: error.message });
     }
@@ -84,3 +87,4 @@ router.delete("/products/:pid", async (req, res) => {
 });
 
 export default router;
+

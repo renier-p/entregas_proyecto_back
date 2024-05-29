@@ -11,9 +11,9 @@ export default class CartManager {
         }
     };
 
-    getCartById = async (cartId) => {
+    getCartById = async (Id) => {
         try {
-            const cart = await CartModel.findById(cartId).populate('products._id').lean();
+            const cart = await CartModel.findById(Id).lean();
             return cart;
         } catch (err) {
             console.error('Error al obtener el carrito por ID:', err.message);
@@ -23,13 +23,18 @@ export default class CartManager {
 
     addCart = async (products) => {
         try {
-            const cart = await CartModel.create({ products });
+            let cart = await CartModel.findOne();
+            if (cart) {
+                return cart;
+            }
+            cart = await CartModel.create({ products });
             return cart;
         } catch (err) {
-            console.error('Error al crear el carrito:', err.message);
+            console.error('Error al crear o buscar el carrito:', err.message);
             return null;
         }
-    }
+    };
+    
 
     addProductToCart = async (cid, productId, quantity) => {
         try {
@@ -101,7 +106,15 @@ export default class CartManager {
 
     deleteAllProductsInCart = async (cid) => {
         try {
-            const cart = await CartModel.findByIdAndUpdate(cid, { products: [] }, { new: true });
+            const cart = await CartModel.findById(cid);
+
+            if (!cart) {
+                return null;
+            }
+
+            cart.products = [];
+
+            await cart.save();
             return cart;
         } catch (err) {
             console.error('Error al eliminar todos los productos del carrito:', err.message);
@@ -109,3 +122,5 @@ export default class CartManager {
         }
     }
 }
+
+

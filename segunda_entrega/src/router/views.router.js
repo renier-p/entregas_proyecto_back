@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import ProductManager from '../Dao/mongo/productsManagerMongo.js';
 import cartManager from '../Dao/mongo/cartsManagerMongo.js';
-import __dirname from '../utils.js';
+import  __dirname  from "../utils.js"
 
 const pm = new ProductManager()
 const cm = new cartManager()
@@ -58,6 +58,19 @@ router.get('/products', async (req, res) => {
     }
 })
 
+router.get('/products/:id', async (req, res) => {
+    try {
+        const product = await pm.getProductById(req.params.id);
+        if (product) {
+            res.render('details', { product });
+        } else {
+            res.status(404).send('Producto no encontrado');
+        }
+    } catch (err) {
+        res.status(500).send('Error obteniendo el producto');
+    }
+})
+
 router.get('/products/inCart', async (req, res) => {
     const productsInCart = await Promise.all(cart.map(async (product) => {
         const productDB = await pm.getProductById(product._id);
@@ -110,6 +123,10 @@ router.get('/carts/:cid', async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+})
+
+router.get("/api/carts" , (req, res) => {
+    res.render("carts")
 })
 
 export default router

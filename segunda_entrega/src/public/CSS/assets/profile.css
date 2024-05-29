@@ -46,12 +46,4 @@
     background-color: #ff6600;
 }
 
-#profile-section .user-info {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #fff;
-    border-top: 1px solid #ccc;
-    padding: 10px 0;
-    text-align: center;
-}
+
