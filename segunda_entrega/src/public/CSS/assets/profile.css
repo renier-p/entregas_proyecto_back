@@ -18,9 +18,9 @@
 #profile-section h2 {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 10px;
-    pointer-events: none; /* Evita que se comporte como un enlace */
-    color: #000; /* Color del texto */
+    margin-bottom: 5px;
+    pointer-events: none; 
+    color: #000; 
 }
 
 #profile-section p {

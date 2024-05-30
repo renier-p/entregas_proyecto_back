@@ -27,8 +27,8 @@
     text-decoration: none;
     border-radius: 16px;
     width: 100%;
-    max-width: 400px; /* Ajusta el ancho máximo para que no ocupe toda la pantalla */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agrega una sombra para un mejor aspecto */
+    max-width: 400px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 #register-section .register-form input[type="text"],
@@ -60,6 +60,6 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
-    pointer-events: none; /* Evita que se comporte como un enlace */
-    color: #000; /* Color del texto */
+    pointer-events: none; 
+    color: #000; 
 }

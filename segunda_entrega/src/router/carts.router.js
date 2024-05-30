@@ -45,7 +45,11 @@ router.get('/:cid', async (req, res) => {
         if (!cart) {
             return res.status(404).json({ status: 'error', message: 'Carro no existe' });
         }
-        res.render('cart', { cart });
+       
+        // res.render('cart', { cart });
+        res.render('cart', {
+            cart: cart,
+        })
     } catch (err) {
         console.error('Error obteniendo el carrito:', err);
         res.status(500).json({ status: 'error', message: 'Error del servidor' });

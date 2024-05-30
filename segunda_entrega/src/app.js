@@ -12,6 +12,7 @@ import sessionsRouter from './router/api/session.js';
 import viewsRouter from './router/views.js';
 
 
+
 import productsRoutes from "./router/products.router.js"
 import cartsRoutes from "./router/carts.router.js"
 import viewsRoutes from "./router/views.router.js"
@@ -56,9 +57,6 @@ mongoose
   })
   .catch((error) => console.error("Error en la conexion", error));
 
-// const httpServer = app.listen(PORT, () => {
-//   console.log(`Server is running on port ${PORT}`);
-// });
 
 const httpServer=app.listen(PORT, () => {
   try {

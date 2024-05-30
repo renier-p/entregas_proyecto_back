@@ -72,3 +72,4 @@ document.addEventListener('DOMContentLoaded', () => {
         detailPageAddButton.addEventListener('click', () => addCartButtonHandler(detailPageAddButton));
     }
 });
+

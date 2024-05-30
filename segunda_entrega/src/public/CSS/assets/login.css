@@ -41,6 +41,6 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
-    pointer-events: none; /* Evita que se comporte como un enlace */
-    color: #000; /* Color del texto */
+    pointer-events: none; 
+    color: #000; 
 }
